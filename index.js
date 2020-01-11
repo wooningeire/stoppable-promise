@@ -15,4 +15,12 @@ export class StoppablePromise extends Promise {
     }
 }
 
-// todo AsyncFunction and AsyncGeneratorFunction
+export function stoppableAsyncFunction(asyncFunction) {
+    return function (...args) {
+        return new StoppablePromise((resolve, reject) => {
+            asyncFunction(...args).then(resolve, reject);
+        });
+    };
+}
+
+// todo AsyncGeneratorFunction
