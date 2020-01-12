@@ -13,6 +13,12 @@ export class StoppablePromise extends Promise {
         this.resolve = res;
         this.reject = rej;
     }
+
+    static fromPromise(promise) {
+        return new StoppablePromise((resolve, reject) => {
+            promise.then(resolve, reject);
+        });
+    }
 }
 
 export function stoppableAsyncFunction(asyncFunction) {
